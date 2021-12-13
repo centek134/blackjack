@@ -1,23 +1,28 @@
 import React, {useEffect} from 'react'
-import { PlayerHand  as Hand} from "../containers/BlackJack"
+import { Hand } from "../containers/BlackJack"
 interface Iprops {
-    deckId: string,
-    hand: Hand["card"],
+    deckId: string;
+    hand: Hand["card"];
     setHand:React.Dispatch<React.SetStateAction<Hand["card"]>>
 };
 
 const Player: React.FC<Iprops> = ({deckId, hand, setHand}) => {
 
         useEffect(() => {
-            fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`, {
-                method:"GET"
-            })
-            .then( response => response.json())
+            if(deckId){
+
+                fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`, {
+                    method:"GET"
+                })
+                .then( response => response.json())
             .then( data => {
                     console.log(data.cards);
                     setHand(data.cards);
                 })
             .catch( err => console.log(err));
+            
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         },[deckId])
 
     const drawCard = () => {
@@ -44,11 +49,11 @@ const Player: React.FC<Iprops> = ({deckId, hand, setHand}) => {
     return (
         <div>
 
-            {hand.map(card => {
+            {hand? hand.map(card => {
                 return(
-                    <img src={card.image}/>
+                    <img key={card.code} alt='card' src={card.image}/>
                 )
-            })}
+            }) : null}
             <button onClick = {drawCard} >Dobierz karte, player</button>
             <button onClick={() => console.log(hand)}>Sprawdź rękę</button>
            
