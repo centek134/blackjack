@@ -1,7 +1,7 @@
 import React,{ useState, useEffect} from 'react'
 import Player from '../components/Player';
 import House from '../components/House';
-export interface PlayerHand {
+export interface Hand {
     card:{
         code:string,
         image:string,
@@ -13,17 +13,23 @@ export interface PlayerHand {
 export const BlackJack = () => {
 
     const [deckId, setDeckId] = useState<string>("");
-    const [hand, setHand] = useState<PlayerHand["card"]>([]);
+    const [hand, setHand] = useState<Hand["card"]>([]);
+    const [houseHand, setHouseHand] = useState<Hand["card"]>([]);
     useEffect(() => {
-        fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1", {
-            method:"GET"
-        })
-        .then( response => response.json())
-        .then( data => {
-            setDeckId(data.deck_id)
 
-        })
-        .catch( err => console.log(err));
+        const fetchAsync = async () => {
+
+            await fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1", {
+                method:"GET"
+            })
+            .then( response => response.json())
+            .then( data => {
+                setDeckId(data.deck_id)
+                
+            })
+            .catch( err => console.log(err));
+        }
+        fetchAsync();
     },[])
 
 
@@ -31,7 +37,7 @@ export const BlackJack = () => {
 
     return (
         <div>
-            <House/>
+            <House houseHand = {houseHand} setHouseHand = {setHouseHand} deckId = {deckId} />
             <Player hand={hand} setHand = {setHand} deckId = {deckId}/>
         </div>
     )
