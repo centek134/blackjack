@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import { Hand } from '../containers/BlackJack';
+import Points from "./Points";
 interface Props {
     deckId: string;
     houseHand: Hand["card"];
@@ -31,6 +32,7 @@ export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId}) => {
                     <img key={card.code} alt='card' src={card.image}/>
                 )
             }) : null}
+            <Points hand={houseHand}/>
         </fieldset>
     )
 };
