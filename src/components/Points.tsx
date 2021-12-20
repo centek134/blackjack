@@ -14,29 +14,21 @@ export const Points: React.FC<Cards> = ({ hand }) => {
       let val = card.value.slice(0, 1);
       if (val === "J" || val === "Q" || val === "K" || val === "0") {
         points += 10;
-      } else {
+      } 
+      else if( val === "A"){
+          if(points <= 10){
+            points+=11;
+          }
+          else if( points > 10){
+            points+=1;
+          }
+      }
+      else {
         points += parseInt(val);
       }
     });
     setPoints(points);
   },[hand])
-
-
-  /*
-   const calcPoints = (hand: Hand["card"]) => {
-    let points = 0;
-    hand.forEach((card) => {
-      let val = card.value.slice(0, 1);
-      if (val === "J" || val === "Q" || val === "K" || val === "0") {
-        points += 10;
-      } else if (val === "ACE") {
-        points += parseInt(val);
-      }
-    });
-    setPoints(points);
-  };
-calcPoints(hand);
-  */
 
   return(
     <div>
