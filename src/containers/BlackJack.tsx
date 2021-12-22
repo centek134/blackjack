@@ -15,10 +15,13 @@ export const BlackJack = () => {
     const [deckId, setDeckId] = useState<string>("");
     const [hand, setHand] = useState<Hand["card"]>([]);
     const [houseHand, setHouseHand] = useState<Hand["card"]>([]);
+    const [stopRound, setStopRound] = useState<boolean>(false);
+    const [playerPoints,setPlayerPoints] = useState<number>(0);
+    const [housePoints, setHousePoints] = useState<number>(0);
+
+
     useEffect(() => {
-
         const fetchAsync = async () => {
-
             await fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1", {
                 method:"GET"
             })
@@ -30,15 +33,22 @@ export const BlackJack = () => {
             .catch( err => console.log(err));
         }
         fetchAsync();
-    },[])
+    },[]);
+
+    useEffect(() => {
+        if(playerPoints > 21 || housePoints > 21){
+            setStopRound(true);
+        }
+    },[playerPoints,housePoints])
 
 
 
 
     return (
         <div>
-            <House houseHand = {houseHand} setHouseHand = {setHouseHand} deckId = {deckId} />
-            <Player hand={hand} setHand = {setHand} deckId = {deckId}/>
+            {stopRound? <h1>End of round!</h1>: null}
+            <House housePoints={housePoints} setHousePoints = {setHousePoints} houseHand = {houseHand} setHouseHand = {setHouseHand} deckId = {deckId} />
+            <Player playerPoints={playerPoints} setPlayerPoints={setPlayerPoints} hand={hand} setHand = {setHand} deckId = {deckId}/>
         </div>
     )
 }

@@ -4,14 +4,16 @@ import Points from "./Points";
 interface Props {
     deckId: string;
     houseHand: Hand["card"];
+    housePoints: number;
     setHouseHand: React.Dispatch<React.SetStateAction<Hand["card"]>>;
+    setHousePoints:React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId}) => {
+export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId, housePoints,setHousePoints}) => {
     useEffect(() => {
         if(deckId){
 
-            fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`, {
+            fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=3`, {
                 method:"GET"
             })
             .then( response => response.json())
@@ -32,7 +34,7 @@ export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId}) => {
                     <img key={card.code} alt='card' src={card.image}/>
                 )
             }) : null}
-            <Points hand={houseHand}/>
+            <Points points={housePoints} setPoints={setHousePoints} hand={houseHand}/>
         </fieldset>
     )
 };

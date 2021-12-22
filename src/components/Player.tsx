@@ -4,10 +4,13 @@ import Points from "./Points";
 export interface Iprops {
     deckId: string;
     hand: Hand["card"];
-    setHand:React.Dispatch<React.SetStateAction<Hand["card"]>>
+    setHand:React.Dispatch<React.SetStateAction<Hand["card"]>>;
+    playerPoints: number;
+    setPlayerPoints:React.Dispatch<React.SetStateAction<number>>;
+    
 };
 
-const Player: React.FC<Iprops> = ({deckId, hand, setHand}) => {
+const Player: React.FC<Iprops> = ({deckId, hand, setHand, playerPoints ,setPlayerPoints}) => {
 
         useEffect(() => {
             if(deckId){
@@ -49,14 +52,14 @@ const Player: React.FC<Iprops> = ({deckId, hand, setHand}) => {
     return (
         <div>
 
-            {hand? hand.map(card => {
+            {hand? hand.map((card,i) => {
                 return(
-                    <img key={card.code} alt='card' src={card.image}/>
+                    <img key={i} alt='card' src={card.image}/>
                 )
             }) : null}
             <button onClick = {drawCard} >Dobierz karte, player</button>
             <button onClick={() => console.log(hand)}>Sprawdź rękę</button>
-            <Points hand = {hand}/>
+            <Points points = {playerPoints} setPoints = {setPlayerPoints} hand = {hand}/>
            
         </div>
     )
