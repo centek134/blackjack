@@ -3,9 +3,10 @@ import {Hand} from "../containers/BlackJack"
 interface PlayerActions {
     hand: Hand["card"] ;
     setHand: React.Dispatch<React.SetStateAction<Hand["card"]>>;
+    setStopRound: React.Dispatch<React.SetStateAction<boolean>>
     deckId:string;
 }
-export const ActionMenu: React.FC<PlayerActions> = ({hand, setHand, deckId}) => {
+export const ActionMenu: React.FC<PlayerActions> = ({hand, setHand, setStopRound, deckId}) => {
 
     const drawCard = () => {
         fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`, {
@@ -23,12 +24,15 @@ export const ActionMenu: React.FC<PlayerActions> = ({hand, setHand, deckId}) => 
             })
         .catch( err => console.log(err));
     }
+
+    const endRound = () => {
+        setStopRound(true);
+    }
     return (
         <fieldset>
-            <button onClick={drawCard}>Draw Card</button>
+            <button onClick={drawCard}>Hit</button>
+            <button onClick={endRound}>Stand</button>
             <button onClick={() => console.log(hand)}>Sprawdź rękę</button>
-            <button>Call</button>
-            <button>Stop</button>
         </fieldset>
     )
 }

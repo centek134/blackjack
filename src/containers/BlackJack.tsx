@@ -48,9 +48,9 @@ export const BlackJack = () => {
     return (
         <div>
             {stopRound? <h1>End of round!</h1>: null}
-            <House housePoints={housePoints} setHousePoints = {setHousePoints} houseHand = {houseHand} setHouseHand = {setHouseHand} deckId = {deckId} />
+            <House stopRound = {stopRound} housePoints={housePoints} setHousePoints = {setHousePoints} houseHand = {houseHand} setHouseHand = {setHouseHand} deckId = {deckId} />
             <Player playerPoints={playerPoints} setPlayerPoints={setPlayerPoints} hand={hand} setHand = {setHand} deckId = {deckId}/>
-            <ActionMenu hand={hand} setHand={setHand} deckId={deckId}/>
+            <ActionMenu setStopRound = {setStopRound} hand={hand} setHand={setHand} deckId={deckId}/>
         </div>
     )
 }
