@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import { Hand } from '../containers/BlackJack';
 import Points from "./Points";
 interface Props {
+    stopRound: boolean;
     deckId: string;
     houseHand: Hand["card"];
     housePoints: number;
@@ -9,11 +10,11 @@ interface Props {
     setHousePoints:React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId, housePoints,setHousePoints}) => {
+export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId, stopRound, housePoints,setHousePoints}) => {
+
     useEffect(() => {
         if(deckId){
-
-            fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=3`, {
+            fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`, {
                 method:"GET"
             })
             .then( response => response.json())
@@ -22,10 +23,25 @@ export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId, housePo
                 setHouseHand(data.cards);
             })
         .catch( err => console.log(err));
-        
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[deckId])
+    },[deckId]);
+     if(stopRound && housePoints < 21){
+                fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`, {
+                    method:"GET"
+                })
+                .then( response => response.json())
+                .then( data => {
+                    console.log(data);
+                    setHouseHand([...houseHand,{
+                        code:data.cards[0].code,
+                        image:data.cards[0].image,
+                        suit:data.cards[0].code,
+                        value:data.cards[0].code
+                    }])
+                })
+                .catch( err => console.log(err));  
+        }
     return (
         <fieldset>
             <legend>House cards</legend>
