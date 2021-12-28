@@ -26,22 +26,35 @@ export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId, stopRou
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[deckId]);
-     if(stopRound && housePoints < 21){
-                fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`, {
-                    method:"GET"
-                })
-                .then( response => response.json())
-                .then( data => {
-                    console.log(data);
-                    setHouseHand([...houseHand,{
-                        code:data.cards[0].code,
-                        image:data.cards[0].image,
-                        suit:data.cards[0].code,
-                        value:data.cards[0].code
-                    }])
-                })
-                .catch( err => console.log(err));  
-        }
+   
+         const addCards = async () => {
+           await fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`, {
+               method:"GET"
+            })
+            .then( response => response.json())
+            .then( data => {
+                console.log(data);
+                setHouseHand([...houseHand,{
+                    code:data.cards[0].code,
+                    image:data.cards[0].image,
+                    suit:data.cards[0].code,
+                    value:data.cards[0].code
+                }])
+            })
+            .catch( err => console.log(err));  
+        };
+        
+        useEffect(()=> {
+            if( stopRound && housePoints < 18){
+                addCards();
+            }
+            else if( stopRound && housePoints >= 19){
+                console.log("house wins");
+            }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        },[stopRound,housePoints])
+
+    
     return (
         <fieldset>
             <legend>House cards</legend>
@@ -51,6 +64,7 @@ export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId, stopRou
                 )
             }) : null}
             <Points points={housePoints} setPoints={setHousePoints} hand={houseHand}/>
+            <button onClick={() => console.log(houseHand)}>click to console log</button>
         </fieldset>
     )
 };
