@@ -4,9 +4,10 @@ interface PlayerActions {
     hand: Hand["card"] ;
     setHand: React.Dispatch<React.SetStateAction<Hand["card"]>>;
     setStopRound: React.Dispatch<React.SetStateAction<boolean>>
+    gameReset: () => void;
     deckId:string;
 }
-export const ActionMenu: React.FC<PlayerActions> = ({hand, setHand, setStopRound, deckId}) => {
+export const ActionMenu: React.FC<PlayerActions> = ({hand, setHand, setStopRound, deckId, gameReset}) => {
 
     const drawCard = () => {
         fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`, {
@@ -33,6 +34,7 @@ export const ActionMenu: React.FC<PlayerActions> = ({hand, setHand, setStopRound
             <button onClick={drawCard}>Hit</button>
             <button onClick={endRound}>Stand</button>
             <button onClick={() => console.log(hand)}>Sprawdź rękę</button>
+            <button onClick={gameReset}>Reset game</button>
         </fieldset>
     )
 }
