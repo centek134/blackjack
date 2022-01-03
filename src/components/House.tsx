@@ -6,11 +6,12 @@ interface Props {
     deckId: string;
     houseHand: Hand["card"];
     housePoints: number;
+    playerPoints:number;
     setHouseHand: React.Dispatch<React.SetStateAction<Hand["card"]>>;
     setHousePoints:React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId, stopRound, housePoints,setHousePoints}) => {
+export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId, stopRound, playerPoints, housePoints,setHousePoints}) => {
 
     useEffect(() => {
         if(deckId){
@@ -45,11 +46,14 @@ export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId, stopRou
         };
         
         useEffect(()=> {
-            if( stopRound && housePoints < 18){
+            if((stopRound) && (housePoints === playerPoints) && (housePoints - playerPoints >= 6)){
                 addCards();
             }
-            else if( stopRound && housePoints >= 19){
-                console.log("house wins");
+            else if((stopRound) && (housePoints === playerPoints)){
+                return;
+            }
+            else if( (stopRound) && (housePoints < playerPoints) && (housePoints < 21)){
+                addCards();
             }
         // eslint-disable-next-line react-hooks/exhaustive-deps
         },[stopRound,housePoints])
