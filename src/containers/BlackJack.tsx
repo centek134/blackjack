@@ -19,6 +19,7 @@ export const BlackJack = () => {
     const [stopRound, setStopRound] = useState<boolean>(false);
     const [playerPoints,setPlayerPoints] = useState<number>(0);
     const [housePoints, setHousePoints] = useState<number>(0);
+    const [winner, setWinner] = useState<string>("");
 
 
     useEffect(() => {
@@ -37,20 +38,53 @@ export const BlackJack = () => {
     },[]);
 
     useEffect(() => {
-        if(playerPoints > 21 || housePoints > 21){
+        if(playerPoints > 21 || housePoints > 21 || (housePoints >= playerPoints && stopRound)){
             setStopRound(true);
+            comparePoints();
         }
-    },[playerPoints,housePoints])
+    },[playerPoints,housePoints]);
 
 
+    const comparePoints = () => {
+        if(
+        (housePoints > playerPoints && housePoints <= 21) ||
+        (playerPoints > 21) ){
+            setWinner("The winner is House!");
+        }
+        else if(housePoints === playerPoints){
+            setWinner("Tie!")
+        }
+        else{
+            setWinner("The winner is Player!");
+        };
+    };
+
+    const gameReset = () => {
+        if(stopRound){
+            fetch(`https://deckofcardsapi.com/api/deck/${deckId}/return/`, {
+                method:"GET"
+            })
+            .then( response => response.json())
+            .then( data => {
+                console.log(data);
+            })
+            .catch( err => console.log(err));
+
+            setHand([]);
+            setHouseHand([]);
+            setStopRound(false);
+        }
+
+    }
+    
 
 
     return (
         <div>
-            {stopRound? <h1>End of round!</h1>: null}
-            <House stopRound = {stopRound} housePoints={housePoints} setHousePoints = {setHousePoints} houseHand = {houseHand} setHouseHand = {setHouseHand} deckId = {deckId} />
+            {stopRound? <h1>{winner}</h1>: null}
+            <House playerPoints = {playerPoints} stopRound = {stopRound} housePoints={housePoints} setHousePoints = {setHousePoints} houseHand = {houseHand} setHouseHand = {setHouseHand} deckId = {deckId} />
             <Player playerPoints={playerPoints} setPlayerPoints={setPlayerPoints} hand={hand} setHand = {setHand} deckId = {deckId}/>
-            <ActionMenu setStopRound = {setStopRound} hand={hand} setHand={setHand} deckId={deckId}/>
+            <ActionMenu gameReset = {gameReset} setStopRound = {setStopRound} hand={hand} setHand={setHand} deckId={deckId}/>
         </div>
     )
 }
