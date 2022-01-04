@@ -9,9 +9,10 @@ interface Props {
     playerPoints:number;
     setHouseHand: React.Dispatch<React.SetStateAction<Hand["card"]>>;
     setHousePoints:React.Dispatch<React.SetStateAction<number>>;
+    roundCounter: number;
 }
 
-export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId, stopRound, playerPoints, housePoints,setHousePoints}) => {
+export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId, stopRound, playerPoints, housePoints,setHousePoints, roundCounter}) => {
 
     useEffect(() => {
         if(deckId){
@@ -26,7 +27,7 @@ export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId, stopRou
         .catch( err => console.log(err));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[deckId]);
+    },[deckId, roundCounter]);
    
          const addCards = async () => {
            await fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`, {

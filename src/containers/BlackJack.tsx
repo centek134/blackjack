@@ -20,7 +20,7 @@ export const BlackJack = () => {
     const [playerPoints,setPlayerPoints] = useState<number>(0);
     const [housePoints, setHousePoints] = useState<number>(0);
     const [winner, setWinner] = useState<string>("");
-
+    const [roundCounter, setRoundCounter] = useState<number>(1);
 
     useEffect(() => {
         const fetchAsync = async () => {
@@ -41,9 +41,9 @@ export const BlackJack = () => {
         if(playerPoints > 21 || housePoints > 21 || (housePoints >= playerPoints && stopRound)){
             setStopRound(true);
             comparePoints();
-        }
+        };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[playerPoints,housePoints]);
-
 
     const comparePoints = () => {
         if(
@@ -73,17 +73,15 @@ export const BlackJack = () => {
             setHand([]);
             setHouseHand([]);
             setStopRound(false);
-        }
-
-    }
+            setRoundCounter(roundCounter + 1);
+        };
+    };
     
-
-
     return (
         <div>
             {stopRound? <h1>{winner}</h1>: null}
-            <House playerPoints = {playerPoints} stopRound = {stopRound} housePoints={housePoints} setHousePoints = {setHousePoints} houseHand = {houseHand} setHouseHand = {setHouseHand} deckId = {deckId} />
-            <Player playerPoints={playerPoints} setPlayerPoints={setPlayerPoints} hand={hand} setHand = {setHand} deckId = {deckId}/>
+            <House roundCounter={roundCounter} playerPoints = {playerPoints} stopRound = {stopRound} housePoints={housePoints} setHousePoints = {setHousePoints} houseHand = {houseHand} setHouseHand = {setHouseHand} deckId = {deckId} />
+            <Player roundCounter = {roundCounter} playerPoints={playerPoints} setPlayerPoints={setPlayerPoints} hand={hand} setHand = {setHand} deckId = {deckId}/>
             <ActionMenu gameReset = {gameReset} setStopRound = {setStopRound} hand={hand} setHand={setHand} deckId={deckId}/>
         </div>
     )

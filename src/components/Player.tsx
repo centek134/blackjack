@@ -7,10 +7,11 @@ export interface Iprops {
     setHand:React.Dispatch<React.SetStateAction<Hand["card"]>>;
     playerPoints: number;
     setPlayerPoints:React.Dispatch<React.SetStateAction<number>>;
+    roundCounter: number;
     
 };
 
-const Player: React.FC<Iprops> = ({deckId, hand, setHand, playerPoints ,setPlayerPoints}) => {
+const Player: React.FC<Iprops> = ({deckId, hand, setHand, playerPoints ,setPlayerPoints, roundCounter}) => {
 
         useEffect(() => {
             if(deckId){
@@ -27,7 +28,7 @@ const Player: React.FC<Iprops> = ({deckId, hand, setHand, playerPoints ,setPlaye
             
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        },[deckId])
+        },[deckId, roundCounter])
 
     return (
         <fieldset>

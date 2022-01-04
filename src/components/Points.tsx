@@ -33,6 +33,7 @@ export const Points: React.FC<Cards> = ({ hand, points ,  setPoints }) => {
     }
     setPoints(points);
   
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[hand])
   
   const gameEnd = () => {
