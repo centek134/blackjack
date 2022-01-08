@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
-import { Hand } from '../containers/BlackJack';
-import Points from "./Points";
+import { Hand } from '../../containers/BlackJack';
+import Points from "../Points/Points";
 interface Props {
     stopRound: boolean;
     deckId: string;
@@ -49,6 +49,9 @@ export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId, stopRou
         useEffect(()=> {
             if((stopRound) && (housePoints === playerPoints) && (housePoints - playerPoints >= 6)){
                 addCards();
+            }
+            else if( stopRound && playerPoints > 21){
+                return;
             }
             else if((stopRound) && (housePoints === playerPoints)){
                 return;

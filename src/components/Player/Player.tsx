@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
-import { Hand } from "../containers/BlackJack"
-import Points from "./Points";
+import { Hand } from "../../containers/BlackJack"
+import Points from "../Points/Points";
 export interface Iprops {
     deckId: string;
     hand: Hand["card"];

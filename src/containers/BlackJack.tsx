@@ -1,7 +1,8 @@
 import React,{ useState, useEffect} from 'react'
-import Player from '../components/Player';
-import House from '../components/House';
-import ActionMenu from '../components/ActionMenu';
+import Player from '../components/Player/Player';
+import House from '../components/House/House';
+import ActionMenu from '../components/ActionMenu/ActionMenu';
+import "./BlackJack.css";
 export interface Hand {
     card:{
         code:string,
@@ -78,7 +79,7 @@ export const BlackJack = () => {
     };
     
     return (
-        <div>
+        <div className="board">
             {stopRound? <h1>{winner}</h1>: null}
             <House roundCounter={roundCounter} playerPoints = {playerPoints} stopRound = {stopRound} housePoints={housePoints} setHousePoints = {setHousePoints} houseHand = {houseHand} setHouseHand = {setHouseHand} deckId = {deckId} />
             <Player roundCounter = {roundCounter} playerPoints={playerPoints} setPlayerPoints={setPlayerPoints} hand={hand} setHand = {setHand} deckId = {deckId}/>

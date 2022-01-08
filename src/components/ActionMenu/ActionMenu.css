@@ -1,0 +1,10 @@
+.btn_section{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.btn_section button{
+    width: 150px;
+    font-size: 22px;
+    padding: 5px;
+}

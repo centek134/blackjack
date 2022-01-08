@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Hand } from "../containers/BlackJack";
+import { Hand } from "../../containers/BlackJack";
 interface Cards {
   hand: Hand["card"];
   points: number;

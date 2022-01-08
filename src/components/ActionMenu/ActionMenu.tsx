@@ -1,5 +1,6 @@
 import React from 'react'
-import {Hand} from "../containers/BlackJack"
+import {Hand} from "../../containers/BlackJack"
+import "./ActionMenu.css";
 interface PlayerActions {
     hand: Hand["card"] ;
     setHand: React.Dispatch<React.SetStateAction<Hand["card"]>>;
@@ -30,12 +31,12 @@ export const ActionMenu: React.FC<PlayerActions> = ({hand, setHand, setStopRound
         setStopRound(true);
     }
     return (
-        <fieldset>
+        <section className="btn_section">
             <button onClick={drawCard}>Hit</button>
             <button onClick={endRound}>Stand</button>
             <button onClick={() => console.log(hand)}>Sprawdź rękę</button>
             <button onClick={gameReset}>Reset game</button>
-        </fieldset>
+        </section>
     )
 }
 export default ActionMenu;
