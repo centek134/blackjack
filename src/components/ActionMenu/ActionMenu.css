@@ -1,10 +1,24 @@
 .btn_section{
+    margin-top: 10px;
+    width: 100%;
+    min-height: 210px; 
+}
+.btn_cont{
+    height: 110px;
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
 }
-.btn_section button{
-    width: 150px;
-    font-size: 22px;
-    padding: 5px;
+.btn_section .btn_cont button{
+    cursor: pointer;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+    font-weight: 600;
+}
+.btn_section .btn_cont .btn_padding{
+    margin: 0 10px;
 }

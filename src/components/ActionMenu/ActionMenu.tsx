@@ -32,11 +32,16 @@ export const ActionMenu: React.FC<PlayerActions> = ({hand, setHand, setStopRound
     }
     return (
         <section className="btn_section">
-            <button onClick={drawCard}>Hit</button>
+            <div className='btn_cont'>
             <button onClick={endRound}>Stand</button>
-            <button onClick={() => console.log(hand)}>Sprawdź rękę</button>
+            </div>
+            <div className='btn_cont'>
+            <button onClick={drawCard}>Hit</button>
+            <button className='btn_padding'>token count</button>
             <button onClick={gameReset}>Reset game</button>
+            </div>
         </section>
+        
     )
 }
 export default ActionMenu;
