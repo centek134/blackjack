@@ -4,5 +4,6 @@
     background-color: rgb(1, 56, 56);
     display: flex;
     flex-direction: column;
+    position: relative;
     
 }

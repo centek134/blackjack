@@ -2,6 +2,7 @@ import React,{ useState, useEffect} from 'react'
 import Player from '../components/Player/Player';
 import House from '../components/House/House';
 import ActionMenu from '../components/ActionMenu/ActionMenu';
+import Overlay from '../components/Overlay/Overlay';
 import "./BlackJack.css";
 export interface Hand {
     card:{
@@ -80,7 +81,7 @@ export const BlackJack = () => {
     
     return (
         <div className="board">
-            {stopRound? <h1>{winner}</h1>: null}
+            {stopRound? <Overlay gameReset={gameReset} winner = {winner}/> : null}
             <House roundCounter={roundCounter} playerPoints = {playerPoints} stopRound = {stopRound} housePoints={housePoints} setHousePoints = {setHousePoints} houseHand = {houseHand} setHouseHand = {setHouseHand} deckId = {deckId} />
             <Player roundCounter = {roundCounter} playerPoints={playerPoints} setPlayerPoints={setPlayerPoints} hand={hand} setHand = {setHand} deckId = {deckId}/>
             <ActionMenu gameReset = {gameReset} setStopRound = {setStopRound} hand={hand} setHand={setHand} deckId={deckId}/>
