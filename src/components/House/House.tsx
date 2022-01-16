@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import { Hand } from '../../containers/BlackJack';
 import Points from "../Points/Points";
+import "./House.css";
 interface Props {
     stopRound: boolean;
     deckId: string;
@@ -64,15 +65,14 @@ export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId, stopRou
 
     
     return (
-        <fieldset>
-            <legend>House cards</legend>
+        <fieldset className='house-field'>
+            <legend className='house-legend'>House cards</legend>
             {houseHand? houseHand.map(card => {
                 return(
                     <img key={card.code} alt='card' src={card.image}/>
                 )
             }) : null}
             <Points points={housePoints} setPoints={setHousePoints} hand={houseHand}/>
-            <button onClick={() => console.log(houseHand)}>click to console log</button>
         </fieldset>
     )
 };

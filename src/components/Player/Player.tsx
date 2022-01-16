@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import { Hand } from "../../containers/BlackJack"
 import Points from "../Points/Points";
+import "./Player.css";
 export interface Iprops {
     deckId: string;
     hand: Hand["card"];
@@ -31,8 +32,8 @@ const Player: React.FC<Iprops> = ({deckId, hand, setHand, playerPoints ,setPlaye
         },[deckId, roundCounter])
 
     return (
-        <fieldset>
-            <legend>Player cards</legend>
+        <fieldset className='player-field'>
+            <legend className='player-legend'>Player cards</legend>
             {hand? hand.map((card,i) => {
                 return(
                     <img key={i} alt='card' src={card.image}/>
