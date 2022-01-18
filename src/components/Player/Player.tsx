@@ -33,13 +33,12 @@ const Player: React.FC<Iprops> = ({deckId, hand, setHand, playerPoints ,setPlaye
 
     return (
         <fieldset className='player-field'>
-            <legend className='player-legend'>Player cards</legend>
+            <legend className='player-legend'>Player <Points points = {playerPoints} setPoints = {setPlayerPoints} hand = {hand}/></legend>
             {hand? hand.map((card,i) => {
                 return(
-                    <img key={i} alt='card' src={card.image}/>
+                    <img className="card-img" key={i} alt='card' src={card.image}/>
                 )
             }) : null}
-            <Points points = {playerPoints} setPoints = {setPlayerPoints} hand = {hand}/>
         </fieldset>
     )
 }

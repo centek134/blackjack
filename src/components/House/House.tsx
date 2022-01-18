@@ -66,13 +66,12 @@ export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId, stopRou
     
     return (
         <fieldset className='house-field'>
-            <legend className='house-legend'>House cards</legend>
+            <legend className='house-legend'>House <Points points={housePoints} setPoints={setHousePoints} hand={houseHand}/></legend>
             {houseHand? houseHand.map(card => {
                 return(
-                    <img key={card.code} alt='card' src={card.image}/>
+                    <img className="card-img" key={card.code} alt='card' src={card.image}/>
                 )
             }) : null}
-            <Points points={housePoints} setPoints={setHousePoints} hand={houseHand}/>
         </fieldset>
     )
 };
