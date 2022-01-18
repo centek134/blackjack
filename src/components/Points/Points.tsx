@@ -6,7 +6,7 @@ interface Cards {
   setPoints:React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const Points: React.FC<Cards> = ({ hand, points ,  setPoints }) => {
+export const Points: React.FC<Cards> = ({ hand, points, setPoints }) => {
   
   useEffect(() => {
     let points = 0;
@@ -42,7 +42,7 @@ export const Points: React.FC<Cards> = ({ hand, points ,  setPoints }) => {
 
   return(
     <div>
-        <h4>{points}</h4>
+        <p>Score: {points}</p>
     </div>
   );
 };

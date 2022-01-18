@@ -1,3 +1,12 @@
 .player-field{
     flex: 0.4;
+    text-align: center;
+}
+.player-field .player-legend{
+    text-align: center;
+    color: white;
+    font-size: 30px;
+}
+.player-field .player-legend p{
+    font-size: 20px;
 }

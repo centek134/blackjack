@@ -1,3 +1,12 @@
 .house-field{
     flex: 0.4;
+    text-align: center;
+}
+.house-field .house-legend{
+    text-align: center;
+    color: white;
+    font-size: 30px;
+}
+.house-field .house-legend p{
+    font-size: 20px;
 }
