@@ -81,7 +81,7 @@ export const BlackJack = () => {
     
     return (
         <div className="board">
-            {stopRound? <Overlay gameReset={gameReset} winner = {winner}/> : null}
+            {stopRound? <Overlay playerPoints = {playerPoints} housePoints = {housePoints} gameReset={gameReset} winner = {winner}/> : null}
             <House roundCounter={roundCounter} playerPoints = {playerPoints} stopRound = {stopRound} housePoints={housePoints} setHousePoints = {setHousePoints} houseHand = {houseHand} setHouseHand = {setHouseHand} deckId = {deckId} />
             <Player roundCounter = {roundCounter} playerPoints={playerPoints} setPlayerPoints={setPlayerPoints} hand={hand} setHand = {setHand} deckId = {deckId}/>
             <ActionMenu gameReset = {gameReset} setStopRound = {setStopRound} hand={hand} setHand={setHand} deckId={deckId}/>
