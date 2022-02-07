@@ -48,7 +48,7 @@ export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId, stopRou
         };
         
         useEffect(()=> {
-            if((stopRound) && (housePoints === playerPoints) && (housePoints - playerPoints >= 6)){
+            if(((stopRound) && (housePoints === playerPoints)) || ((stopRound) && (playerPoints - housePoints > 0))){
                 addCards();
             }
             else if( stopRound && playerPoints > 21){
