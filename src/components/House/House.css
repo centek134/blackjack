@@ -10,3 +10,10 @@
 .house-field .house-legend p{
     font-size: 20px;
 }
+
+@media screen and (max-width:470px){
+    .house-field img.card-img{
+        max-width: 140px;
+        max-height: 200px;
+    }
+}
