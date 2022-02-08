@@ -42,8 +42,8 @@ export const BlackJack = () => {
     useEffect(() => {
         if(playerPoints > 21 || housePoints > 21 || (housePoints >= playerPoints && stopRound)){
             setStopRound(true);
-            comparePoints();
-        };
+            setTimeout(comparePoints,500)
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[playerPoints,housePoints]);
 
@@ -54,7 +54,7 @@ export const BlackJack = () => {
             setWinner("The winner is House!");
         }
         else if(housePoints === playerPoints){
-            setWinner("Tie!")
+            setWinner("Tie!");
         }
         else{
             setWinner("The winner is Player!");
@@ -71,7 +71,7 @@ export const BlackJack = () => {
                 console.log(data);
             })
             .catch( err => console.log(err));
-
+            setWinner("");
             setHand([]);
             setHouseHand([]);
             setStopRound(false);
