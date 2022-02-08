@@ -11,7 +11,7 @@ interface Props {
     setHouseHand: React.Dispatch<React.SetStateAction<Hand["card"]>>;
     setHousePoints:React.Dispatch<React.SetStateAction<number>>;
     roundCounter: number;
-}
+};
 
 export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId, stopRound, playerPoints, housePoints,setHousePoints, roundCounter}) => {
 
@@ -43,19 +43,21 @@ export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId, stopRou
                     suit:data.cards[0].code,
                     value:data.cards[0].code
                 }])
+                
             })
             .catch( err => console.log(err));  
         };
         
         useEffect(()=> {
-            if(((stopRound) && (housePoints === playerPoints)) || ((stopRound) && (playerPoints - housePoints > 0))){
+            if( stopRound && playerPoints > 21){
+                return;
+            }
+            else if((stopRound) && (housePoints === 21 && playerPoints === 21)){
+                return;
+            }
+            else if(((stopRound) && (housePoints === playerPoints)) || ((stopRound) && (playerPoints - housePoints > 0))){
                 addCards();
-            }
-            else if( stopRound && playerPoints > 21){
-                return;
-            }
-            else if((stopRound) && (housePoints === playerPoints)){
-                return;
+                
             }
             else if( (stopRound) && (housePoints < playerPoints) && (housePoints < 21)){
                 addCards();
@@ -63,7 +65,6 @@ export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId, stopRou
         // eslint-disable-next-line react-hooks/exhaustive-deps
         },[stopRound,housePoints])
 
-    
     return (
         <fieldset className='house-field'>
             <legend className='house-legend'>House <Points points={housePoints} setPoints={setHousePoints} hand={houseHand}/></legend>
