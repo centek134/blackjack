@@ -22,7 +22,6 @@ export const House: React.FC<Props> = ({houseHand, setHouseHand, deckId, stopRou
             })
             .then( response => response.json())
         .then( data => {
-                console.log(data.cards);
                 setHouseHand(data.cards);
             })
         .catch( err => console.log(err));

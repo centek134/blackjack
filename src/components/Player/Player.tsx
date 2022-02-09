@@ -22,7 +22,6 @@ const Player: React.FC<Iprops> = ({deckId, hand, setHand, playerPoints ,setPlaye
                 })
                 .then( response => response.json())
             .then( data => {
-                    console.log(data.cards);
                     setHand(data.cards);
                 })
             .catch( err => console.log(err));
